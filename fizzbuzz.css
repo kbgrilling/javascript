@@ -1,0 +1,65 @@
+/* style sheet */
+/* base color 00436b */
+body {
+    background: bisque;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+}
+
+#wrapper #results {
+    grid-column: 1 / 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    visibility: hidden;
+}
+
+#wrapper #results div {
+    margin: 5px 10px;
+    border-right: thin #00436b solid;
+
+}
+
+#wrapper #results div:last-of-type {
+    border-right: none;
+}
+
+#wrapper #results div h3 {
+    text-align: center;
+}
+
+#wrapper #results div div {
+    border-bottom: thin black dashed;
+    border-right: none;
+}
+
+#firstNumber {
+    grid-column: 2 / 3;
+    text-align: center;
+
+}
+
+#secondNumber {
+    grid-column: 3 / 4;
+    text-align: center;
+
+}
+
+#fizzbuzzButton {
+    grid-column: 1 / 5;
+    text-align: center;
+    margin: 15px;
+
+}
+
+#insturctions {
+    margin: auto;
+    grid-column: 1 / 5;
+}
+
+#noFizzbuzz {
+    grid-column: 1;
+}

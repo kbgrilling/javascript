@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Forecast</title>
+    <script type="text/javascript">
+
+        function getForecast() {
+            const weatherAPIHeader = new Headers();
+            weatherAPIHeader.append('User-Agent', 'rogerthatapps.com, kdblue@hotmail.com');
+
+            let forecastAPI = "https://api.weather.gov/gridpoints/RAH/71,59/forecast";
+                fetch (forecastAPI)
+                .then(response => response.json())
+                .then(function (data) {
+                showForecast(data);
+                })
+                .catch(function (err) {
+                    errorForecast(err);
+                });
+         }
+
+        function showForecast(data) {
+            console.log(data.properties.periods[0].temperature);
+            // set the day forcast time period name Day name
+            let nameOne = data.properties.periods[0].name;
+            let nameTwo = data.properties.periods[1].name;
+            let nameThree = data.properties.periods[2].name;
+            let nameFour = data.properties.periods[3].name;
+            let nameFive = data.properties.periods[4].name;
+
+            // set the temperature for the time period
+            let tempOne = data.properties.periods[0].temperature;
+            let tempTwo = data.properties.periods[1].temperature;
+            let tempThree = data.properties.periods[2].temperature;
+            let tempFour = data.properties.periods[3].temperature;
+            let tempFive = data.properties.periods[4].temperature;
+
+            //  set the short description of the forecast
+            let descOne = data.properties.periods[0].shortForecast;
+            let descTwo = data.properties.periods[1].shortForecast;
+            let descThree = data.properties.periods[2].shortForecast;
+            let descFour = data.properties.periods[3].shortForecast;
+            let descFive = data.properties.periods[4].shortForecast;
+
+            // set the icon for the forecast time period
+            let iconOne = data.properties.periods[0].icon;
+            let iconTwo = data.properties.periods[1].icon;
+            let iconThree = data.properties.periods[2].icon;
+            let iconFour = data.properties.periods[3].icon;
+            let iconFive = data.properties.periods[4].icon;
+
+            // set the update time
+            let forecastEndTime = data.properties.periods[0].endTime;
+            //let nextUpdateHour = newForecastTime.substr(11, 2);
+
+
+
+            document.getElementById("nameOne").innerHTML = nameOne;
+            document.getElementById("nameTwo").innerHTML = nameTwo;
+            document.getElementById("nameThree").innerHTML = nameThree;
+            document.getElementById("nameFour").innerHTML = nameFour;
+            document.getElementById("nameFive").innerHTML = nameFive;
+
+            document.getElementById("tempOne").innerHTML = tempOne;
+            document.getElementById("tempTwo").innerHTML = tempTwo;
+            document.getElementById("tempThree").innerHTML = tempThree;
+            document.getElementById("tempFour").innerHTML = tempFour;
+            document.getElementById("tempFive").innerHTML = tempFive;
+
+            //document.getElementById("descOne").innerHTML = descOne;
+            //document.getElementById("descTwo").innerHTML = descTwo;
+            //document.getElementById("descThree").innerHTML = descThree;
+            //document.getElementById("descFour").innerHTML = descFour;
+            //document.getElementById("descFive").innerHTML = descFive;
+
+            document.getElementById("iconOne").innerHTML = '<img src="' + iconOne + '" />';
+            document.getElementById("iconTwo").innerHTML = '<img src="' + iconTwo + '" />';
+            document.getElementById("iconThree").innerHTML = '<img src="' + iconThree + '" />';
+            document.getElementById("iconFour").innerHTML = '<img src="' + iconFour + '" />';
+            document.getElementById("iconFive").innerHTML = '<img src="' + iconFive + '" />';
+
+
+
+            console.log("End Date: " + forecastEndTime.substr(8, 2) + " End Hour: " + forecastEndTime.substr(11, 2));
+            updateForecast(forecastEndTime);
+
+
+        }
+
+        function errorForecast(err) {
+            console.log(err);
+            console.log("error");
+            let forecastErrorMessage = "Forecast unavailable"
+            document.getElementById("tempOne").innerHTML = forecastErrorMessage;
+            document.getElementById("tempTwo").innerHTML = forecastErrorMessage;
+            document.getElementById("tempThree").innerHTML = forecastErrorMessage;
+            document.getElementById("tempFour").innerHTML = forecastErrorMessage;
+            document.getElementById("tempFive").innerHTML = forecastErrorMessage;
+
+            setTimeout(getForecast, 5000);
+
+        }
+
+        function updateForecast(forecastEndTime) {
+            let currentDateTime = new Date();
+            let forecastEndDate = forecastEndTime.substr(8, 2);
+            let forecastEndHour = forecastEndTime.substr(11, 2);
+            let updateDate = Number(forecastEndDate) - Number(currentDateTime.getDate());
+            let updateHour = Number(forecastEndHour) - Number(currentDateTime.getHours());
+            var setUpdateMilliseconds = 3600000;
+
+            console.log("current hour: " + currentDateTime.getHours());
+
+            if (updateDate > 0) {
+                updateHour = updateHour + 24;
+
+            }
+
+            if (updateHour > 1) {
+              setUpdateMilliseconds = updateHour * 3600000;
+            } else if (updateHour < 1) {
+               setUpdateMilliseconds = 900000;
+            }
+
+
+            console.log("update Hour " + updateHour);
+            console.log(setUpdateMilliseconds);
+            setTimeout(getForecast, setUpdateMilliseconds);
+
+        }
+
+    </script>
+    <style>
+        body {
+            max-width: 1980px;
+            margin: 0;
+            color: #333333;
+            background-image: url("img/weatherBK.jpg");
+            background-repeat: no-repeat;
+        }
+        #weather div {
+            display: inline-block;
+            margin: 5px 15px;
+            border-right: thin #f1f1f1 solid;
+            width: 15%;
+            text-align: center;
+        }
+
+        #weather div:last-of-type {
+            border: none;
+        }
+
+        #raleigh {
+            width: auto;
+
+            text-align: center;
+        }
+        #raleigh h1 {
+            margin-bottom: 0;
+        }
+        #weather div div {
+    	margin: 0;
+	    padding: 0;
+	    width: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="raleigh">
+        <h1>Raleigh, NC Forecast</h1>
+</div>
+<div id="weather">
+
+    <div id="forecastOne">
+        <h2 id="nameOne"></h2>
+        <h4 id="tempOne"></h4>
+        <div id="iconOne"></div>
+
+
+    </div>
+    <div id="forecastTwo">
+        <h2 id="nameTwo"></h2>
+        <h4 id="tempTwo"></h4>
+        <div id="iconTwo"></div>
+
+
+    </div>
+    <div id="forecastThree">
+        <h2 id="nameThree"></h2>
+        <h4 id="tempThree"></h4>
+        <div id="iconThree"></div>
+
+
+    </div>
+    <div id="forecastFour">
+        <h2 id="nameFour"></h2>
+        <h4 id="tempFour"></h4>
+        <div id="iconFour"></div>
+
+
+    </div>
+    <div id="forecastFive">
+        <h2 id="nameFive"></h2>
+        <h4 id="tempFive"></h4>
+        <div id="iconFive"></div>
+    </div>
+
+</div>
+<script>
+    getForecast();
+</script>
+</body>
+</html>

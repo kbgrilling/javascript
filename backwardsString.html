@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Words in Reverse</title>
+    <script lang="javascript">
+
+        function safeWords(myWord) {
+            switch (myWord) {
+                case "Mom":
+                case "mom":
+                    //console.log('mommy');
+                    window.alert("You know you call her mommy!");
+                    backwardsString("Mommy");
+                    break;
+                case "Dad":
+                case "dad":
+                    window.alert("You know you call him daddy!");
+                    backwardsString("Daddy")
+                    break;
+                case "God":
+                case "GOD":
+                case "god":
+                    window.alert("Pick another word!");
+                    document.getElementById("myWord").value = "";
+                    document.getElementById('backwards').innerHTML = "Enter a different word.";
+                    break;
+                case "Dog":
+                case "dog":
+                    window.alert("Man's best friend!");
+                    document.getElementById("myWord").value = "";
+                    document.getElementById('backwards').innerHTML = "Enter a different word.";
+                    break;
+
+                case "Happy":
+                    case "happy":
+                        document.getElementById('backwards').innerHTML = '&#x1F600';
+                        break;
+
+                default:
+                    backwardsString(myWord);
+            }
+
+
+        }
+
+        function backwardsString(myWord) {
+            let myString = myWord;
+            let myStringLength = myString.length;
+            let newBackwardsString = '';
+            for (let i = myStringLength; i > -1; i--) {
+               newBackwardsString = newBackwardsString + myString.charAt(i);
+            }
+            console.log(newBackwardsString);
+            document.getElementById('backwards').innerHTML = newBackwardsString;
+
+        }
+    </script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            background: #00436b;
+            color: white;
+        }
+        h3, h5 {
+            text-shadow: 1px 1px 0 #333333;
+        }
+
+        .instructions {
+            margin: 8px 8px;
+            font-size: 1.4em;
+        }
+
+        .gameArea {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="instructions">
+    <h3>Ever wonder what a word is spelled in reverse!</h3>
+    <h5>Be careful: eggs are hiding!</h5>
+</div>
+<div class="gameArea">
+    <label>Enter a word in the box</label>
+<input id="myWord" type="text" maxlength="15">
+<button onclick="safeWords(myWord.value)">Reverse</button>
+<div id="backwards"></div>
+</div>
+
+
+
+</body>
+</html>

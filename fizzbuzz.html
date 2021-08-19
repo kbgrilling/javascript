@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FIZZBUZZ</title>
+    <script src="fizzbuzz.js"></script>
+    <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="fizzbuzz.css">
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="insturctions">
+        <h2>Let's play FIZZBUZZ!</h2>
+        <p>Find the multiples of numbers 1 - 9 in the range of 1 - 100.  Does your your selctions have
+            only fizz or only buzz. If they match FIZZBUZZ is scored.</p>
+        <p>How to play: Change the numbers below then click "Show Fizzbuzz". <br />
+            <small>If you choose 1 for both; everything is FIZZBUZZ!</small></p>
+    </div>
+    <div id="firstNumber">
+        <label for="firstNum">Choose your first number!</label>
+        <input type="number" id="firstNum" required="required" max="9" min="1"  value="1"/>
+    </div>
+    <div id="secondNumber">
+        <label for="secondNum">Choose your second Number!</label>
+        <input type="number" id="secondNum" required="required" max="9" min="1" value="1" />
+    </div>
+    <div id="fizzbuzzButton">
+        <button onclick="fizzbuzz(firstNum.value, secondNum.value)">Show Fizzbuzz!</button>
+    </div>
+    <div id="results">
+        <div id="noFizzbuzz">
+            <h3>No Fizz or Buzz</h3>
+        </div>
+        <div id="onlyFizz">
+            <h3>Only Fizz</h3>
+        </div>
+        <div id="onlyBuzz">
+            <h3>Only Buzz</h3>
+        </div>
+        <div id="fizzbuzz">
+            <h3>Together = FIZZBUZZ</h3>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
